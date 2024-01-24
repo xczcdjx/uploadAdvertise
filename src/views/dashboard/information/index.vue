@@ -4,7 +4,7 @@ import BaseSetting from "@/views/dashboard/information/components/base/baseSetti
 import Advertise from "@/views/dashboard/information/components/advertise/advertise.vue";
 import Float from "@/views/dashboard/information/components/float/float";
 import DisplayImg from "@/views/dashboard/information/components/display/displayImg.vue";
-const showPanel = ref<string>('advertise')
+const showPanel = ref<string>('float')
 const btnData = ['base', 'advertise', 'float']
 </script>
 <script lang="ts">
