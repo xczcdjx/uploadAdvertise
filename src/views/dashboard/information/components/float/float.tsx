@@ -12,6 +12,7 @@ interface Event {
     name:'float',
     render
 })
+
 export default class floatSetting extends TSX<Props,Event>()(Vue){
     templates:string[]=
         ['red','green','blue','yellow','orangered','pink','red','green','blue',

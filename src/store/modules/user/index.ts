@@ -9,7 +9,8 @@ import { setToken, clearToken } from '@/utils/auth';
 import { removeRouteListener } from '@/utils/route-listener';
 import { UserState } from './types';
 import useAppStore from '../app';
-
+import {post} from "@/rapi/http";
+import {login} from "@/rapi/url";
 const useUserStore = defineStore('user', {
   state: (): UserState => ({
     name: undefined,
@@ -63,8 +64,14 @@ const useUserStore = defineStore('user', {
     // Login
     async login(loginForm: LoginData) {
       try {
-        const res = await userLogin(loginForm);
-        setToken(res.data.token);
+        const res = await post({
+          url:login,
+          data:{
+            account:loginForm.username,
+            password:loginForm.password
+          }
+        });
+        setToken(res.resultSet.tokenPrefix+res.resultSet.token);
       } catch (err) {
         clearToken();
         throw err;

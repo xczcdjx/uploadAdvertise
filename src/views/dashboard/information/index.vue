@@ -1,11 +1,23 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {reactive, ref} from "vue";
 import BaseSetting from "@/views/dashboard/information/components/base/baseSetting";
 import Advertise from "@/views/dashboard/information/components/advertise/advertise.vue";
 import Float from "@/views/dashboard/information/components/float/float";
 import DisplayImg from "@/views/dashboard/information/components/display/displayImg.vue";
+import {storeToRefs} from "pinia";
+import {useSport} from "@/store";
+import FloatNew from "@/views/dashboard/information/components/float/floatNew.vue";
 const showPanel = ref<string>('float')
 const btnData = ['base', 'advertise', 'float']
+/*const allData=reactive({
+  logoUrl:'',
+  template:'',
+  lIsOpen:false,
+  ltext:'',
+  fIsOpen:false,
+  ftext:''
+})*/
+const {info}=storeToRefs(useSport())
 </script>
 <script lang="ts">
 export default {
@@ -22,9 +34,17 @@ export default {
       </a-button-group>
     </div>
     <div class="content">
-      <base-setting v-if="showPanel==='base'"/>
-      <advertise v-else-if="showPanel==='advertise'"/>
-      <float v-else/>
+      <base-setting :logoUrl="info.logoUrl" :websiteName="info.websiteName" :domain-name="info.domainName" v-if="showPanel==='base'"/>
+      <advertise
+          style="grid-column: span 2"
+          :computer-ad-goal-url="info.computerAdGoalUrl"
+          :computer-ad-picture-url="info.computerAdPictureUrl"
+          :phone-ad-goal-url="info.phoneAdGoalUrl"
+          :phone-ad-picture-url="info.phoneAdPictureUrl"
+          v-else-if="showPanel==='advertise'"/>
+      <float-new
+          :info="info"
+          v-else/>
       <display-img v-if="showPanel!=='advertise'"/>
     </div>
   </div>
