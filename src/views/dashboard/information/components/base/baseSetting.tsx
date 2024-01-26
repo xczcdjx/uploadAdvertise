@@ -47,7 +47,8 @@ export default defineComponent({
                 <Input v-model={form.websiteName} placeholder='网站名称长度为4-16位' size='large'/>
             </p>
             <p>
-                <Cupload tit='logo 配置'/>
+                <Cupload onFile={(f)=>{
+                    console.log(f)}} url={'logoUrl'} tit='logo 配置'/>
             </p>
             <p>
                 <Button onClick={Submit} type='primary' loading={loading.value}>Submit</Button> &nbsp;&nbsp;

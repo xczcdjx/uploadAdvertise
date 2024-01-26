@@ -13,9 +13,8 @@ import App from './App.vue';
 // https://arco.design/docs/designlab/use-theme-package
 import '@/assets/style/global.less';
 import '@/api/interceptor';
-
 const app = createApp(App);
-
+app.config.globalProperties.$i=import.meta.env.VITE_API_BASE_URL
 app.use(ArcoVue, {});
 app.use(ArcoVueIcon);
 

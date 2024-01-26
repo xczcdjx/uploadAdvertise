@@ -1,6 +1,8 @@
 import {defineComponent, getCurrentInstance, PropType} from "vue";
 import {FileItem, Space, Upload} from "@arco-design/web-vue";
 import {useProxy} from "@/hooks/useProxy";
+import {settingupload} from "@/rapi/url";
+import {getToken} from "@/utils/auth";
 
 export default defineComponent({
     name:'cUpload',
@@ -17,7 +19,7 @@ export default defineComponent({
             type:Array as PropType<Record<'uid'|'name'|'id', string>[]>,
         }
     },
-    emits:['onFile'],
+    emits:['file'],
     setup(props,{emit}) {
         // const message=getCurrentInstance().appContext.config.globalProperties.$message
         const allowList=['image/png','image/jpg','image/jpeg']
@@ -35,8 +37,8 @@ export default defineComponent({
             return true
         }
         const onError = (fileItem:FileItem)=>{
-            console.log(fileItem)
-            // message.error({content:'上传失败'})
+            // console.log(fileItem)
+            proxy?.$message.error(fileItem.response)
         }
         const customRequest = (option) => {
             const {onProgress, onError, onSuccess, fileItem, name} = option
@@ -58,6 +60,10 @@ export default defineComponent({
                 if (xhr.status < 200 || xhr.status >= 300) {
                     return onError(xhr.responseText);
                 }
+                const res=JSON.parse(xhr.response)
+                if (res.resCode!=='000000'){
+                    return onError(res.resDesc)
+                }
                 onSuccess(xhr.response);
             };
             const reader = new FileReader();
@@ -66,7 +72,14 @@ export default defineComponent({
                 // const formData = new FormData();
                 // console.log(base64,fileItem.file)
                 // formData.append(name || 'file', base64);
-                xhr.open('post', '//upload-z2.qbox.me/', true);
+                let data={
+                    // @ts-ignore
+                    [props.url]:e.target!.result
+                }
+                xhr.open('post', proxy!.$i+settingupload, true);
+                xhr.setRequestHeader('Authorization',getToken()!)
+                // @ts-ignore
+                xhr.setRequestHeader('type',props.url)
                 xhr.send(e.target!.result);
             };
             reader.readAsDataURL(fileItem.file)
@@ -82,21 +95,15 @@ export default defineComponent({
                 headers={headers}
                 // tip={' 上传jpg/png文件，不超过500kb '}
                 defaultFileList={
-                    [
-                        {
-                            uid: '-2',
-                            name: 'light.png',
-                            url: '//p1-arco.byteimg.com/tos-cn-i-uwbnlip3yd/a8c8cdb109cb051163646151a4a5083b.png~tplv-uwbnlip3yd-webp.webp',
-                        },
-                        ]
+                    []
                 }
                 imagePreview={true}
                 action={props.url}
                 customRequest={customRequest}
                 limit={1}
                 onBeforeUpload={beforeUpload}
-                success={(fileItem:FileItem)=>emit('onFile',fileItem)}
-                error={onError}
+                onSuccess={(fileItem:FileItem)=>emit('file',fileItem)}
+                onError={onError}
                 list-type="picture-card"/>
         </Space>
     }

@@ -7,16 +7,8 @@ import DisplayImg from "@/views/dashboard/information/components/display/display
 import {storeToRefs} from "pinia";
 import {useSport} from "@/store";
 import FloatNew from "@/views/dashboard/information/components/float/floatNew.vue";
-const showPanel = ref<string>('float')
+const showPanel = ref<string>('base')
 const btnData = ['base', 'advertise', 'float']
-/*const allData=reactive({
-  logoUrl:'',
-  template:'',
-  lIsOpen:false,
-  ltext:'',
-  fIsOpen:false,
-  ftext:''
-})*/
 const {info}=storeToRefs(useSport())
 </script>
 <script lang="ts">

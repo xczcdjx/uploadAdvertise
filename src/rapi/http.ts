@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { App } from 'vue'
 import request from './axios.config'
+import {useUserStore} from "@/store";
 
 export interface HttpOption {
   url: string
@@ -32,7 +33,8 @@ function http<T = any>({
     else if (res.data.resCode==='000104'){
       window.alert('登录失效,请重新登录')
       // store.commit('user/LOGOUT')
-      // clearStorage()
+      useUserStore().logout()
+      localStorage.clear()
       window.location.reload()
       // return undefined
     }
@@ -145,5 +147,6 @@ declare module 'vue' {
     $post: <T>(options: HttpOption) => Promise<Response<T>>
     $put: <T>(options: HttpOption) => Promise<Response<T>>
     $deleteT: <T>(options: HttpOption) => Promise<Response<T>>
+    $i: string
   }
 }
