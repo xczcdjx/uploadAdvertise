@@ -34,7 +34,6 @@ export default defineComponent({
         const onComplete = (e) => {
             console.log(e)
         }
-
         return () => <div className='baseSetting'>
             <p>
                 <span>网站域名</span>
@@ -55,7 +54,7 @@ export default defineComponent({
                     [{
                         uid:String(Date.now()),
                         name:'logoUrl',
-                        url:form.logoUrl
+                        file:'data:'+form.logoUrl
                     }]
                 } onFile={onComplete} url={'logoUrl'} tit='logo 配置'/>
             </p>

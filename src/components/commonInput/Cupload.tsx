@@ -1,5 +1,5 @@
-import {defineComponent, getCurrentInstance, PropType} from "vue";
-import {FileItem, Space, Upload} from "@arco-design/web-vue";
+import {defineComponent, getCurrentInstance, PropType, ref, Teleport} from "vue";
+import {FileItem, Modal, Space, Upload} from "@arco-design/web-vue";
 import {useProxy} from "@/hooks/useProxy";
 import {settingupload} from "@/rapi/url";
 import {getToken} from "@/utils/auth";
@@ -24,6 +24,7 @@ export default defineComponent({
     emits:['file'],
     setup(props,{emit}) {
         // const message=getCurrentInstance().appContext.config.globalProperties.$message
+        const visible=ref<boolean>(false)
         const allowList=['image/png','image/jpg','image/jpeg']
         const {proxy}=useProxy()
         const headers={}
@@ -109,7 +110,20 @@ export default defineComponent({
                     useSport().getSetting()
                 }}
                 onError={onError}
-                list-type="picture-card"/>
+                onPreview={(f:FileItem)=>{
+                    visible.value=true
+                }}
+                />
+            <Teleport to={'body'}>
+                <Modal v-model:visible={visible.value} v-slots={{
+                    title:()=>props.tit
+                }}
+                >
+                    <div style={{display:'flex',justifyContent:'center'}}>
+                        <img src={useSport().getUrl(props.url!)}/>
+                    </div>
+                </Modal>
+            </Teleport>
         </Space>
     }
 })

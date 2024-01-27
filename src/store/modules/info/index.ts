@@ -1,7 +1,6 @@
 import {defineStore} from "pinia";
 import {get,  put} from "@/rapi/http";
 import {settingInfo, settingupdate} from "@/rapi/url";
-import {Vue} from "vue-facing-decorator";
 
 export interface Info {
     computerAdGoalUrl:    string;
@@ -86,6 +85,11 @@ const useSport = defineStore('sportInfo', {
                     resolve(v.resDesc)
                 }).catch(reject)
             })
+        }
+    },
+    getters:{
+        getUrl:(state)=>(url:string)=>{
+            return 'data:'+state.info[url]
         }
     }
 })

@@ -40,7 +40,7 @@ export default {
       <span>点击目标地址</span>
       <a-input v-model="form.computerAdGoalUrl" placeholder="Search enter" size="large"/>
     </p>
-    <c-upload :default-img="[{
+    <c-upload :default-img="form.phoneAdPictureUrl===null?[]:[{
                         uid:String(Date.now()),
                         name:'phoneAdPictureUrl',
                         url:form.phoneAdPictureUrl
@@ -50,11 +50,11 @@ export default {
       <span>点击目标地址</span>
       <a-input v-model="form.phoneAdGoalUrl" placeholder="Search enter" size="large"/>
     </p>
-    <c-upload :default-img="[{
+    <c-upload :default-img="form.computerAdPictureUrl===null?[]:[{
                         uid:String(Date.now()),
-                        name:'computerAdGoalUrl',
-                        url:form.computerAdGoalUrl
-                    }]" tit="广告图片" url="computerAdGoalUrl"/>
+                        name:'computerAdPictureUrl',
+                        url:form.computerAdPictureUrl
+                    }]" tit="广告图片" url="computerAdPictureUrl"/>
     <div style="margin-top: 20px">
       <a-button @click="Submit" type="primary" :loading="loading">Submit</a-button>&nbsp;&nbsp;
       <a-button @click="Reset">Reset</a-button>
