@@ -71,7 +71,7 @@ export default class displayImg extends Vue {
     height: 40px;
     border-radius: 5px;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
