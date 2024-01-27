@@ -31,6 +31,10 @@ export default defineComponent({
                 logoUrl: "", domainName: ""
             })
         }
+        const onComplete = (e) => {
+            console.log(e)
+        }
+
         return () => <div className='baseSetting'>
             <p>
                 <span>网站域名</span>
@@ -47,8 +51,13 @@ export default defineComponent({
                 <Input v-model={form.websiteName} placeholder='网站名称长度为4-16位' size='large'/>
             </p>
             <p>
-                <Cupload onFile={(f)=>{
-                    console.log(f)}} url={'logoUrl'} tit='logo 配置'/>
+                <Cupload defaultImg={
+                    [{
+                        uid:String(Date.now()),
+                        name:'logoUrl',
+                        url:form.logoUrl
+                    }]
+                } onFile={onComplete} url={'logoUrl'} tit='logo 配置'/>
             </p>
             <p>
                 <Button onClick={Submit} type='primary' loading={loading.value}>Submit</Button> &nbsp;&nbsp;

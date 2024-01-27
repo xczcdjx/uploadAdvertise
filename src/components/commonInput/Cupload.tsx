@@ -3,6 +3,7 @@ import {FileItem, Space, Upload} from "@arco-design/web-vue";
 import {useProxy} from "@/hooks/useProxy";
 import {settingupload} from "@/rapi/url";
 import {getToken} from "@/utils/auth";
+import {useSport} from "@/store";
 
 export default defineComponent({
     name:'cUpload',
@@ -16,7 +17,8 @@ export default defineComponent({
             required:true
         },
         defaultImg:{
-            type:Array as PropType<Record<'uid'|'name'|'id', string>[]>,
+            type:Array as PropType<Record<'uid'|'name'|'url', string>[]>,
+            default:[]
         }
     },
     emits:['file'],
@@ -72,10 +74,10 @@ export default defineComponent({
                 // const formData = new FormData();
                 // console.log(base64,fileItem.file)
                 // formData.append(name || 'file', base64);
-                let data={
-                    // @ts-ignore
-                    [props.url]:e.target!.result
-                }
+                // let data={
+                //     // @ts-ignore
+                //     [props.url]:e.target!.result
+                // }
                 xhr.open('post', proxy!.$i+settingupload, true);
                 xhr.setRequestHeader('Authorization',getToken()!)
                 // @ts-ignore
@@ -95,14 +97,17 @@ export default defineComponent({
                 headers={headers}
                 // tip={' 上传jpg/png文件，不超过500kb '}
                 defaultFileList={
-                    []
+                    props.defaultImg
                 }
                 imagePreview={true}
                 action={props.url}
                 customRequest={customRequest}
                 limit={1}
                 onBeforeUpload={beforeUpload}
-                onSuccess={(fileItem:FileItem)=>emit('file',fileItem)}
+                onSuccess={(fileItem:FileItem)=>{
+                    emit('file',fileItem)
+                    useSport().getSetting()
+                }}
                 onError={onError}
                 list-type="picture-card"/>
         </Space>
