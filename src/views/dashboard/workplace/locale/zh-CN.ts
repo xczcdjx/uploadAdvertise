@@ -35,7 +35,7 @@ export default {
   'workplace.categoriesPercent': '内容类型占比',
   'workplace.pecs': '个',
 
-  'menu.dashboard.information': '运动信息分享',
+  'menu.dashboard.information': '会员设定系统',
   'menu.information.base': '基本设置',
   'menu.information.advertise': '广告设定',
   'menu.information.float': '浮动窗口设定',
