@@ -26,7 +26,7 @@ export default class floatSetting extends TSX<Props,Event>()(Vue){
         lineTarget:'',
         lineColor:'#000000',
         faceSwitch:false,
-        faceText:'',
+        facebookText:'',
         faceTarget:'',
         faceColor:'#000000',
     }
@@ -45,7 +45,7 @@ export default class floatSetting extends TSX<Props,Event>()(Vue){
             lineTarget:'',
             lineColor:'#000000',
             faceSwitch:false,
-            faceText:'',
+            facebookText:'',
             faceTarget:'',
             faceColor:'#000000',
         })
@@ -77,7 +77,7 @@ function render(this:floatSetting) {
         <p>是否启用&nbsp;&nbsp;<Switch v-model={this.form.faceSwitch}/></p>
         <p>
             <span>文字</span>
-            <Input v-model={this.form.faceText} placeholder="Search enter" size="large"/>
+            <Input v-model={this.form.facebookText} placeholder="Search enter" size="large"/>
         </p>
         <p>
             <span>点击目标地址</span>

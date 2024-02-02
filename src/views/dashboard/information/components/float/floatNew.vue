@@ -17,7 +17,7 @@ const form = reactive({
   lineGoalUrl: '',
   lineColour: '#000000',
   facebookStatus: false,
-  faceText: '',
+  facebookText: '',
   facebookGoalUrl: '',
   facebookColour: '#000000',
 })
@@ -44,7 +44,7 @@ const Reset = () => {
     lineGoalUrl: '',
     lineColour: '#000000',
     facebookStatus: false,
-    faceText: '',
+    facebookText: '',
     facebookGoalUrl: '',
     facebookColour: '#000000',
   })
@@ -93,7 +93,7 @@ export default {
     </p>
     <p>
       <span>文字</span>
-      <a-input v-model="form.faceText" placeholder="Search enter" size="large"/>
+      <a-input v-model="form.facebookText" placeholder="Search enter" size="large"/>
     </p>
     <p>
       <span>点击目标地址</span>
